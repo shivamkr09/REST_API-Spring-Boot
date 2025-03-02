@@ -7,7 +7,7 @@ import java.util.List;
 @Service
 public class ChallengeService {
     private List<Challenge> challenges=new ArrayList<>();
-    private Long nextId=1L;
+    private Long nextId=2L;
 
     public ChallengeService(){
         Challenge challenge1=new Challenge(1L,"March","Learn Java Spring Boot");
@@ -35,5 +35,25 @@ public class ChallengeService {
             }
         }
         return null;
+    }
+
+    public boolean updateChallenge(Long id, Challenge updatedChallenge) {
+        for(Challenge challenge:challenges){
+            if(challenge.getId().equals(id)){
+                challenge.setMonth(updatedChallenge.getMonth());
+                challenge.setDescription(updatedChallenge.getDescription());
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public boolean deleteChallenge(Long id) {
+        boolean isChallengeDeleted=challenges.removeIf(challenge -> challenge.getId().equals(id));
+        if(isChallengeDeleted){
+            return true;
+        }
+        return false;
     }
 }

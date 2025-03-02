@@ -42,4 +42,25 @@ public class ChallengeController {
 
 
     }
+    @PutMapping("/challenges/{id}")
+    public ResponseEntity<String> updateChallenge(@PathVariable Long id,@RequestBody Challenge updatedChallenge){
+        boolean isChallengeUpdated=challengeService.updateChallenge(id,updatedChallenge);
+        if(isChallengeUpdated){
+            return new ResponseEntity<>("Challenge updated successfully",HttpStatus.OK) ;
+        }
+        else{
+            return new ResponseEntity<>("Challenge not added successfully",HttpStatus.NOT_FOUND) ;
+        }
+    }
+
+    @DeleteMapping("/challenges/{id}")
+    public ResponseEntity<String> deleteChallenge(@PathVariable Long id){
+        boolean isChallengeDeleted=challengeService.deleteChallenge(id);
+        if(isChallengeDeleted){
+            return new ResponseEntity<>("Challenge Deleted successfully",HttpStatus.OK) ;
+        }
+        else{
+            return new ResponseEntity<>("Challenge not deleted successfully",HttpStatus.NOT_FOUND) ;
+        }
+    }
 }
